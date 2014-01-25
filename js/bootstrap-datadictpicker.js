@@ -61,7 +61,7 @@
 		this._attachEvents();
 		
 		var tmp = [];
-		tmp.push('<th width="30" class="text-center">选择</th>');
+		tmp.push('<th class="datadict-picker-tab-col-selector text-center">选择</th>');
 		$.each(this.tabHeadName,function(i,n) {
 			tmp.push("<th>"+n+"</th>");
 		});
@@ -79,7 +79,7 @@
 		
 		
 		this.picker = $(((this.bootcssVer == 3) ? PLUGIN_DATA.modelTemplateV3 : PLUGIN_DATA.modelTemplate)
-				.replace("${id}",this._eleValId).replace("${title}",this.dialogTitle).replace("${body}",this._tabframe))
+				.replace(/\$\{id\}/g,this._eleValId).replace(/\$\{title\}/g,this.dialogTitle).replace(/\$\{body\}/g,this._tabframe))
 		.appendTo(this.isInline ? this.element : 'body')
 		.on({
 			click:     $.proxy(this.click, this),
@@ -425,53 +425,69 @@
 	$.fn.DatadictPicker.Constructor = DatadictPicker;
 	
 	var PLUGIN_DATA = {
-		modelTemplateV3: '<div class="modal fade datadictpicker-modal">'+
-		'  <div class="modal-dialog" id="datadictpicker-dialog-${id}">'+
+		modelTemplateV3: '<div class="modal fade datadictpicker-modal-v3" tabindex="-1" role="dialog" aria-labelledby="modal-title-${id}" aria-hidden="true" id="datadictpicker-dialog-${id}">'+
+		'  <div class="modal-dialog">'+
 		'    <div class="modal-content">'+
 		'      <div class="modal-header">'+
 		'        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
-		'        <h4 class="modal-title">${title}</h4>'+
+		'        <h4 class="modal-title" id="modal-title-${id}">${title}</h4>'+
 		'      </div>'+
 		'      <div class="modal-body">${body}</div>'+
 		'      <div class="modal-footer">'+
-		'<form class="form-search">'+
-		'  <div class="input-append">'+
-		'    <input type="text" class="span2 search-query">'+
-		'    <button type="submit" class="btn"><i class="icon-search"> </i></button>'+
-		'  </div>'+
-		'</form>'+
+		'<div class="form-inline">'+
+'	<div class="form-inline input-group-sm" id="searchPanel">'+
+'		<span class="form-group search-input"><span class="input-group">'+
+'			<input type="text" id="searchInput" class="form-control">'+
+'				<span class="input-group-btn">'+
+'					<button class="btn btn-default" type="button" id="searchButton"><i class="glyphicon glyphicon-search"> </i></button>'+
+'				</span>'+
+'			</span>'+
+'		</span>'+
+'		<span class="form-group pager-input"><span class="input-group">'+
+'			<div class="input-group-btn">'+
+'				<button id="btnPagerFirst" class="btn btn-default"><i class="glyphicon glyphicon-fast-backward"> </i></button>'+
+'				<button id="btnPagerBackward" class="btn btn-default"><i class="glyphicon glyphicon-backward"> </i></button>'+
+'			</div>'+
+'			<input id="pager" class="form-control" type="text" value="1" style="width:45px;" />'+
+'			<span id="pagerTotal" class="input-group-addon">1000</span>'+
+'			<div class="input-group-btn">'+
+'				<button id="btnPagerForward" class="btn btn-default"><i class="glyphicon glyphicon-forward"> </i></button>'+
+'				<button id="btnPagerEnd" class="btn btn-default"><i class="glyphicon glyphicon-fast-forward"> </i></button>'+
+'			</div>'+
+'			</span>'+
+'		</span>'+
+'	</div>'+
+'</div>'+
 		'        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">关闭</button>'+
 		'        <button type="button" id="btnSelect" class="btn btn-primary">选择</button>'+
-		'      /div>'+
+		'      </div>'+
 		'    </div>'+
 		'  </div>'+
-		'</div>',//FIXME for V3的模板并没有准备好
+		'</div>',//FIXME for V3的模板翻页按钮有问题
 		modelTemplate: '<div class="modal hide fade datadictpicker-modal" id="datadictpicker-dialog-${id}">'+
-		'  <div class="modal-header">'+
-		'    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
-		'    <h4>${title}</h4>'+
-		'  </div>'+
-		'  <div class="modal-body">${body}</div>'+
-		'  <div class="modal-footer">'+
-		'    <div class="form-search">'+
-		'      <div class="input-append" id="searchPanel">'+
-		'        <input type="text" id="searchInput" class="span2 search-query">'+
-		'        <button class="btn" id="searchButton"><i class="icon-search"> </i></button>'+
-		'      </div>'+
-		'      <div class="btn-group">'+
-		'        <button id="btnPagerFirst" class="btn"><i class="icon-fast-backward"> </i></button>'+
-		'        <button id="btnPagerBackward" class="btn"><i class="icon-backward"> </i></button>'+
-		'        <div class="input-append">'+
-		'          <input id="pager" type="text" value="1" style="width:35px;" />'+
-		'          <span id="pagerTotal" class="add-on">1</span>'+
-		'        </div>'+
-		'        <button id="btnPagerForward" class="btn"><i class="icon-forward"> </i></button>'+
-		'        <button id="btnPagerEnd" class="btn"><i class="icon-fast-forward"> </i></button>'+
-		'      </div>'+
-		'    </div>'+
-		'    <button type="button" id="btnClose" class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>'+
-		'    <button type="button" id="btnSelect" class="btn btn-primary">选择</button>'+
-		'  </div>'+
+		'<div class="modal-header">'+
+		'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
+		'<h4>${title}</h4>'+
+		'</div>'+
+		'<div class="modal-body">${body}</div>'+
+		'<div class="modal-footer">'+
+		'<div class="form-search">'+
+		'<div class="input-append" id="searchPanel">'+
+		'<input type="text" id="searchInput" class="span2 search-query">'+
+		'<button class="btn" id="searchButton"><i class="icon-search"> </i></button>'+
+		'</div>&nbsp;'+
+		'<div class="input-prepend input-append">'+
+		'<div class="btn-group"><button id="btnPagerFirst" class="btn"><i class="icon-fast-backward"> </i></button>'+
+		'<button id="btnPagerBackward" class="btn"><i class="icon-backward"> </i></button></div>'+
+		'<input id="pager" type="text" value="1" style="width:35px;" />'+
+		'<span id="pagerTotal" class="add-on pager-total">1</span>'+
+		'<div class="btn-group"><button id="btnPagerForward" class="btn"><i class="icon-forward"> </i></button>'+
+		'<button id="btnPagerEnd" class="btn"><i class="icon-fast-forward"> </i></button></div>'+
+		'</div>'+
+		'</div>'+
+		'<button type="button" id="btnClose" class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>'+
+		'<button type="button" id="btnSelect" class="btn btn-primary">选择</button>'+
+		'</div>'+
 		'</div>'
 	};
 }(window.jQuery);
