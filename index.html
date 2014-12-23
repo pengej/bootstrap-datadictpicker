@@ -7,6 +7,8 @@
     <meta name="description" content="Bootstrap-datadictpicker : 为bootstrap增加一种选择数据的控件，数据来自后台提供的json" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+	<link href="http://libs.baidu.com/bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="stylesheets/bootstrap-datadictpicker.css" rel="stylesheet" type="text/css" />
 
     <title>Bootstrap-datadictpicker</title>
   </head>
@@ -35,6 +37,59 @@
 <a name="bootstrap-datadictpicker" class="anchor" href="#bootstrap-datadictpicker"><span class="octicon octicon-link"></span></a>bootstrap-datadictpicker</h1>
 
 <p>为bootstrap增加一种选择数据的控件，数据来自后台提供的json</p>
+
+<p>
+演示：<br/>
+<form class="form-horizontal" id="message-from" method="post" >
+			<fieldset>
+
+				<div class="control-group">
+					<label class="control-label" for="inputCoupon">商家*</label>
+					<div class="controls">
+						<div class="input-append datadict-picker" id="inputShopP1">
+						    <input class="input-xlarge" type="text" id="inputCoupon" name="couponid" value="1">
+						    <span class="add-on"><i class="icon-remove"></i></span>
+						    <span class="add-on"><i class="icon-list-alt"></i></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputCata">商家*</label>
+					<div class="controls">
+						<div class="input-append datadict-picker" id="inputShopP2">
+						    <input class="input-xlarge" type="text" id="inputCata" name="cataid" value="">
+						    <span class="add-on"><i class="icon-remove"></i></span>
+						    <span class="add-on"><i class="icon-list-alt"></i></span>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="control-group">
+					<label class="control-label" for="inputShop">商家*</label>
+					<div class="controls">
+						<div class="input-append datadict-picker" id="inputShopP"
+							data-datadict-api-url="javascripts/test-data.js"
+							data-datadict-dialog-title="选择商家"
+							data-datadict-tab-head-name="商家名称,地址"
+							data-datadict-tab-field="shopname,address"
+							data-datadict-item-id-name="shopid"
+							data-datadict-item-display-name="shopname"
+							data-datadict-mult-select="false",
+							data-datadict-has-search="true"
+						>
+						    <input class="input-xlarge" type="text" id="inputShop" name="shopid" value="">
+						    <span class="add-on"><i class="icon-remove"></i></span>
+						    <span class="add-on"><i class="icon-list-alt"></i></span>
+						</div>
+					</div>
+				</div>
+
+			</fieldset>
+		</form><br/>
+详情请查看本页源代码
+</p>
       </section>
     </div>
 
@@ -47,6 +102,35 @@
     </div>
 
     
+	<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://libs.baidu.com/bootstrap/2.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="javascripts/bootstrap-datadictpicker.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+		$(function() {
+			$("#inputShopP1").DatadictPicker({
+				dataPickerApiUrl:"javascripts/test-data.js",
+				dialogTitle:"选择商家",
+				tabHeadName:["商家名称","地址"],
+				tabField:["shopname","address"],
+				itemIdName:"shopid",
+				itemDisplayName:"shopname",
+				multSelect: false,
+				hasSearch: true
+			});
+			$("#inputShopP2").DatadictPicker({
+				dataPickerApiUrl:"javascripts/test-data.js",
+				dialogTitle:"选择商家",
+				tabHeadName:["商家名称","地址"],
+				tabField:["shopname","address"],
+				itemIdName:"shopid",
+				itemDisplayName:"shopname",
+				multSelect: true,
+				hasSearch: true
+			});
+			$("#inputShopP").DatadictPicker();
+		});
+	</script>
 
   </body>
 </html>
