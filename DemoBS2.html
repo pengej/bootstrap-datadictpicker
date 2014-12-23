@@ -18,10 +18,10 @@
 		<form class="form-horizontal" id="message-from" method="post" >
 			<fieldset>
 
-				<div class="control-group" id="optCouponS1">
-					<label class="control-label" for="inputCoupon">优惠券*</label>
+				<div class="control-group">
+					<label class="control-label" for="inputCoupon">商家*</label>
 					<div class="controls">
-						<div class="input-append datadict-picker" id="inputCouponP">
+						<div class="input-append datadict-picker" id="inputShopP1">
 						    <input class="input-xlarge" type="text" id="inputCoupon" name="couponid" value="1">
 						    <span class="add-on"><i class="icon-remove"></i></span>
 						    <span class="add-on"><i class="icon-list-alt"></i></span>
@@ -29,10 +29,10 @@
 					</div>
 				</div>
 
-				<div class="control-group" id="optCataS2">
-					<label class="control-label" for="inputCata">分类*</label>
+				<div class="control-group">
+					<label class="control-label" for="inputCata">商家*</label>
 					<div class="controls">
-						<div class="input-append datadict-picker" id="inputCataP">
+						<div class="input-append datadict-picker" id="inputShopP2">
 						    <input class="input-xlarge" type="text" id="inputCata" name="cataid" value="">
 						    <span class="add-on"><i class="icon-remove"></i></span>
 						    <span class="add-on"><i class="icon-list-alt"></i></span>
@@ -41,11 +41,11 @@
 				</div>
 
 
-				<div class="control-group" id="optShopS1">
+				<div class="control-group">
 					<label class="control-label" for="inputShop">商家*</label>
 					<div class="controls">
 						<div class="input-append datadict-picker" id="inputShopP"
-							data-datadict-api-url="data/shop.js"
+							data-datadict-api-url="data/test-data.js"
 							data-datadict-dialog-title="选择商家"
 							data-datadict-tab-head-name="商家名称,地址"
 							data-datadict-tab-field="shopname,address"
@@ -70,24 +70,24 @@
 	<script type="text/javascript">
 
 		$(function() {
-			$("#inputCouponP").DatadictPicker({
-				dataPickerApiUrl:"data/coupon.js",
-				dialogTitle:"选择优惠券",
-				tabHeadName:["优惠券标题","发布时间","过期时间"],
-				tabField:["coupontitle","publishtime","endtime"],
-				itemIdName:"couponid",
-				itemDisplayName:"coupontitle",
+			$("#inputShopP1").DatadictPicker({
+				dataPickerApiUrl:"data/test-data.js",
+				dialogTitle:"选择商家",
+				tabHeadName:["商家名称","地址"],
+				tabField:["shopname","address"],
+				itemIdName:"shopid",
+				itemDisplayName:"shopname",
 				multSelect: false,
 				hasSearch: true
 			});
-			$("#inputCataP").DatadictPicker({
-				dataPickerApiUrl:"data/cata.js",
-				dialogTitle:"选择分类",
-				tabHeadName:["分类名称"],
-				tabField:["cataname"],
-				itemIdName:"cataid",
-				itemDisplayName:"cataname",
-				multSelect: false,
+			$("#inputShopP2").DatadictPicker({
+				dataPickerApiUrl:"data/test-data.js",
+				dialogTitle:"选择商家",
+				tabHeadName:["商家名称","地址"],
+				tabField:["shopname","address"],
+				itemIdName:"shopid",
+				itemDisplayName:"shopname",
+				multSelect: true,
 				hasSearch: true
 			});
 			$("#inputShopP").DatadictPicker();

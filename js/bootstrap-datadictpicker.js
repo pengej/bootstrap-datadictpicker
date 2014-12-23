@@ -209,7 +209,7 @@
 			var keyword = $('#datadictpicker-dialog-'+this._eleValId).find("#searchInput").val();
 			var that = this;
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				url: this.dataPickerApiUrl,
 				data: {
 					currentpage: this._page_pager,
@@ -269,7 +269,7 @@
 			var that = this;
 			if(inpVal.val())
 				$.ajax({
-					type: "POST",
+					type: "GET",
 					url: this.dataPickerApiUrl,
 					data: {
 						ids:  inpVal.val()
